@@ -1,0 +1,240 @@
+IPv4 Parser Test Cases
+
+1. Normal IPv4 address
+Input:
+connecting to 192.168.1.1 now
+
+Expected:
+Extracted IPv4 address: 192.168.1.1 (decimal value: 3232235777, port: none)
+
+
+2. IPv4 address with port
+Input:
+server=10.0.0.255:8080end
+
+Expected:
+Extracted IPv4 address: 10.0.0.255 (decimal value: 167772415, port: 8080)
+
+
+3. Garbage character separates candidates
+Input:
+192a168.1.1.1
+
+Expected:
+Extracted IPv4 address: 168.1.1.1 (decimal value: 2818638081, port: none)
+
+
+4. Extra period after address
+Input:
+192.168.1.1.
+
+Expected:
+Invalid input: no valid IPv4 address found
+
+
+5. Address surrounded by text
+Input:
+Connection from 192.168.1.1 refused
+
+Expected:
+Extracted IPv4 address: 192.168.1.1 (decimal value: 3232235777, port: none)
+
+
+6. Leading zero in octet
+Input:
+192.168.01.1
+
+Expected:
+Invalid input: no valid IPv4 address found
+
+
+7. Port too large
+Input:
+1.2.3.4:99999
+
+Expected:
+Invalid input: no valid IPv4 address found
+
+
+8. Too few octets
+Input:
+12.34.56
+
+Expected:
+Invalid input: no valid IPv4 address found
+
+
+9. No address in input
+Input:
+no number here
+
+Expected:
+Invalid input: no valid IPv4 address found
+
+
+10. Maximum IPv4 address
+Input:
+255.255.255.255
+
+Expected:
+Extracted IPv4 address: 255.255.255.255 (decimal value: 4294967295, port: none)
+
+
+11. Octet greater than 255
+Input:
+256.1.1.1
+
+Expected:
+Invalid input: no valid IPv4 address found
+
+
+12. All-zero address
+Input:
+0.0.0.0
+
+Expected:
+Extracted IPv4 address: 0.0.0.0 (decimal value: 0, port: none)
+
+
+13. Port value 0
+Input:
+1.2.3.4:0
+
+Expected:
+Extracted IPv4 address: 1.2.3.4 (decimal value: 16909060, port: 0)
+
+
+14. Maximum valid port
+Input:
+1.2.3.4:65535
+
+Expected:
+Extracted IPv4 address: 1.2.3.4 (decimal value: 16909060, port: 65535)
+
+
+15. Port above maximum
+Input:
+1.2.3.4:65536
+
+Expected:
+Invalid input: no valid IPv4 address found
+
+
+16. Leading zero in port
+Input:
+1.2.3.4:080
+
+Expected:
+Invalid input: no valid IPv4 address found
+
+
+17. Missing port value
+Input:
+1.2.3.4:
+
+Expected:
+Invalid input: no valid IPv4 address found
+
+
+18. Two colons
+Input:
+1.2.3.4:80:90
+
+Expected:
+Invalid input: no valid IPv4 address found
+
+
+19. Too many octets
+Input:
+1.2.3.4.5
+
+Expected:
+Invalid input: no valid IPv4 address found
+
+
+20. Empty octet
+Input:
+1.2..3.4
+
+Expected:
+Invalid input: no valid IPv4 address found
+
+
+21. Leading period
+Input:
+.1.2.3.4
+
+Expected:
+Invalid input: no valid IPv4 address found
+
+
+22. Too many digits in an octet
+Input:
+1234.2.3.4
+
+Expected:
+Invalid input: no valid IPv4 address found
+
+
+23. Invalid candidate followed by valid candidate
+Input:
+999.999.999.999 then 10.20.30.40
+
+Expected:
+Extracted IPv4 address: 10.20.30.40 (decimal value: 169090600, port: none)
+
+
+24. Multiple leading zeros
+Input:
+00.1.2.3
+
+Expected:
+Invalid input: no valid IPv4 address found
+
+
+25. Missing last octet
+Input:
+1.2.3.
+
+Expected:
+Invalid input: no valid IPv4 address found
+
+
+26. Colon before fourth octet
+Input:
+1.2.3:4
+
+Expected:
+Invalid input: no valid IPv4 address found
+
+
+27. Extra colon after port
+Input:
+1.2.3.4:80:
+
+Expected:
+Invalid input: no valid IPv4 address found
+
+
+28. Garbage before and after valid address
+Input:
+abc!!!10.20.30.40xyz
+
+Expected:
+Extracted IPv4 address: 10.20.30.40 (decimal value: 169090600, port: none)
+
+
+29. Small valid address
+Input:
+1.1.1.1
+
+Expected:
+Extracted IPv4 address: 1.1.1.1 (decimal value: 16843009, port: none)
+
+
+30. END command
+Input:
+END
+
+Expected:
+Program terminated.
